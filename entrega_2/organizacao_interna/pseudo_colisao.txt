@@ -1,1 +1,29 @@
+(Use essa notação para facilitar a compreensão geral) Seja v[i][x] o acesso ao campo x do vértice i do paralelepípedo v; v[i][y] o acesso ao campo y do vértice i do paralelepípedo v, e v[i][z] o acesso ao z do vértice i do paralelepípedo v:
 
+Considerando a tabela sagrada:
+0) Vértice norte superior leste.
+1) Vértice norte superior oeste.
+2) Vértice norte inferior leste. 
+3) Vértice norte inferior oeste. 
+4) Vértice sul superior leste. 
+5) Vértice sul superior oeste. 
+6) Vértice sul inferior leste. 
+7) Vértice sul inferior oeste.
+
+Onde o norte é o lado do paraelelepípedo cujo x tem maior valor e sul onde ele tem menor valor.
+Onde superior é o lado do paraelelepípedo cujo y tem maior valor e inferior onde ele tem menor valor.
+Onde o leste é o lado do paraelelepípedo cujo z tem maior valor e oeste onde ele tem menor valor.
+
+Dados dois paralelepípedos a e b.
+- Encontre os vértices que formam a colisão entre a e b: Trivialmente os vértices de a que estão contidos dentro ou nas extremidades de b. Não tão trivialmente, pontos que não são necessáriamente vértice de a ou b, mas que delimitam a 
+figura da colisão, esses pontos obrigatoriamente estão nas faces/arestas de b.
+- Após encontrado todos (ou não encontrado nenhum), retorne se houve colisão ou não
+- Com base nos números de vértices para formar a superfície de colisão, gere um sinal de saída de três bits informando a figura (000 - paralelepípedo, 001 - plano, 010 - reta, 011 - vértice, 100 - sem colisão)
+
+Colisão de paraelelepípedo é a mais comum, se a está contido b, a==b ou se a tem uma porção tridimensional sua dentro de b.
+Colisão de reta é caso a e b compartilhem toda ou parte de uma face.
+Colisão de reta é caso a e b compartilhem toda ou parte de uma aresta.
+Colsisão de vértice é quando exatamente um vértice de a toca em outro vértice b.
+Sem colisão é quando as figuras não se tocam nem se intersectam.
+
+DESCRIÇÃO DO ALGORITMO EM PSEUDOCÓDIGO:

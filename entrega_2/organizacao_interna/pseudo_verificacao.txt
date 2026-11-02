@@ -1,1 +1,22 @@
+(Use essa notação para facilitar a compreensão geral) Seja v[i][x] o acesso ao campo x do vértice i do paralelepípedo v; v[i][y] o acesso ao campo y do vértice i do paralelepípedo v, e v[i][z] o acesso ao z do vértice i do paralelepípedo v:
 
+Dado um paralelepípedo v, determine se ele segue a tabela sagrada:
+0) Vértice norte superior leste.
+1) Vértice norte superior oeste.
+2) Vértice norte inferior leste. 
+3) Vértice norte inferior oeste. 
+4) Vértice sul superior leste. 
+5) Vértice sul superior oeste. 
+6) Vértice sul inferior leste. 
+7) Vértice sul inferior oeste.
+
+Onde o norte é o lado do paraelelepípedo cujo x tem maior valor e sul onde ele tem menor valor.
+Onde superior é o lado do paraelelepípedo cujo y tem maior valor e inferior onde ele tem menor valor.
+Onde o leste é o lado do paraelelepípedo cujo z tem maior valor e oeste onde ele tem menor valor.
+
+Então por exemplo, todos os vértices norte tem que ter a mesma componente x e essa componente x tem que ser maior do que todos vértices sul. Por sua vez, todos vértices sul tem que ter a mesma componente x.
+
+Se seguir a tabela sagrada, erro = 0
+Se não seguir, erro = 1
+
+DESCRIÇÃO DO ALGORITMO EM PSEUDOCÓDIGO:
