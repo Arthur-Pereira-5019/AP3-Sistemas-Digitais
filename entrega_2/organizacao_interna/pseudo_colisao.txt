@@ -27,3 +27,51 @@ Colsisão de vértice é quando exatamente um vértice de a toca em outro vérti
 Sem colisão é quando as figuras não se tocam nem se intersectam.
 
 DESCRIÇÃO DO ALGORITMO EM PSEUDOCÓDIGO:
+
+// a e b são descrições de dois paralelepípedos,
+// contendo P1(x_min, y_min, z_min) e P2(x_max, y_max, z_max),
+// representando seus vértices opostos
+detectar_colisao(a, b){
+    // calcular os limites da interseção
+    ix_min = MAX(a.x_min, b.x_min)
+    ix_max = MIN(a.x_max, b.x_max)
+
+    iy_min = MAX(a.y_min, b.y_min)
+    iy_max = MIN(a.y_max, b.y_max)
+
+    iz_min = MAX(a.z_min, b.z_min)
+    iz_max = MIN(a.z_max, b.z_max)
+
+    // verificar se existe colisão
+    if(ix_min > ix_max OU
+       iy_min > iy_max OU
+       iz_min > iz_max){
+        colisao = FALSE
+        figura = "100"
+    }
+
+    // Calcular as dimensões da interseção
+    dx = ix_max - ix_min
+    dy = iy_max - iy_min
+    dz = iz_max - iz_min
+
+    // Classificar a geometria da interseção
+    if(dx > 0 E dy > 0 E dz > 0) 
+      figura = "000" // paralelepípedo
+
+    else if(dx = 0 E dy > 0 E dz > 0 OU
+             dx > 0 E dy = 0 E dz > 0 OU
+             dx > 0 E dy > 0 E dz)
+      figura = "001"  // plano
+
+    else if(x > 0 E dy = 0 E dz = 0 OU
+             dx = 0 E dy > 0 E dz = 0 OU
+             dx = 0 E dy = 0 E dz > 0)
+      figura = "010"  // reta
+    else
+      figura = "011"  // vértice
+
+
+    colisao = TRUE
+}
+
