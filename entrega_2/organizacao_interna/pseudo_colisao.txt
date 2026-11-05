@@ -61,7 +61,7 @@ detectar_colisao(a, b){
 
     else if(dx = 0 E dy > 0 E dz > 0 OU
              dx > 0 E dy = 0 E dz > 0 OU
-             dx > 0 E dy > 0 E dz)
+             dx > 0 E dy > 0 E dz = 0)
       figura = "001"  // plano
 
     else if(x > 0 E dy = 0 E dz = 0 OU
