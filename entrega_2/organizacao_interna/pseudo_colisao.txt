@@ -35,9 +35,9 @@ detectar_colisao(a, b){
     }
 
     // Calcular as dimensões da interseção
-    dx = ix_max - ix_min
-    dy = iy_max - iy_min
-    dz = iz_max - iz_min
+    dx = cx_max - cx_min
+    dy = cy_max - cy_min
+    dz = cz_max - cz_min
 
     // Classificar a geometria da interseção
     if(dx > 0 E dy > 0 E dz > 0) 
