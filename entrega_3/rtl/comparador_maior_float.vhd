@@ -30,7 +30,7 @@ architecture behavior of comparador_maior_float is
 begin
     -- Garante que as larguras informadas somam os 24 bits do vetor.
     assert (1 + EXP_W + FRAC_W = 24)
-        report "comparador_maior: 1 + EXP_W + FRAC_W deve ser igual a 24"
+        report "comparador_maior_float: 1 + EXP_W + FRAC_W deve ser igual a 24"
         severity failure;
 
     -- Comparador "maior que" (A > B) para floats de 24 bits.

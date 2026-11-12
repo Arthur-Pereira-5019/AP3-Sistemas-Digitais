@@ -6,7 +6,7 @@ entity somador is
 
     generic (
         N : positive
-    )
+    );
 
     port (
         A : in std_logic_vector(N-1 downto 0);
@@ -18,5 +18,5 @@ end somador;
 architecture behavior of somador is 
 begin
     -- Somador sem sinal (unsigned) de N bits: A, B e S têm a mesma quantidade de bits.
-    soma <= std_logic_vector(unsigned(A) + unsigend(B)); 
+    soma <= std_logic_vector(unsigned(A) + unsigned(B)); 
 end architecture behavior;
