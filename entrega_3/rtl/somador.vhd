@@ -17,6 +17,6 @@ end somador;
 
 architecture behavior of somador is 
 begin
-    -- Somador sem sinal (unsigned) de N bits: A, B e S têm a mesma quantidade de bits.
+    -- Somador sem sinal (unsigned) de N bits: A, B e soma têm a mesma quantidade de bits.
     soma <= std_logic_vector(unsigned(A) + unsigned(B)); 
 end architecture behavior;
