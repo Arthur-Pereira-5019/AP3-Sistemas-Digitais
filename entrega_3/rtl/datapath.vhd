@@ -275,7 +275,7 @@ begin
         S => zero_pa_out
     );
 
-    u_sub_pb : entity work.subtractor
+    u_sub_pb : entity work.subtrator
     generic map (N => 10)
     port map (
         A => pb_reg_out,
@@ -283,7 +283,7 @@ begin
         S => subtractor_pb_out
     );
 
-    u_sub_pa : entity work.subtratores
+    u_sub_pa : entity work.subtrator
     generic map (N => 10)
     port map (
         A => pa_reg_out,
