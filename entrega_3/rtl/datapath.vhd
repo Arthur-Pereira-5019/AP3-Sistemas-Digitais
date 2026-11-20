@@ -27,7 +27,7 @@ entity collision_datapath is
         NA, NB           : in  std_logic_vector(9 downto 0);
         -- Sinais de status (para o bloco de controle)
         MA, MB           : out std_logic;
-        Error            : out std_logic;
+        Error_BO            : out std_logic;
         Collided         : out std_logic;
         -- Dados de saída
         PA, PB           : out std_logic_vector(9 downto 0);
@@ -99,7 +99,7 @@ begin
     u_mux_g : entity work.mux2to1
     generic map(N => 72)
     port map(
-        sel => validateB,
+        sel => ValidateB,
         A => av1_reg_out,
         B => bv1_reg_out,
         S => mux_g_out
@@ -108,7 +108,7 @@ begin
     u_mux_t : entity work.mux2to1
     generic map(N => 72)
     port map(
-        sel => validateB,
+        sel => ValidateB,
         A => av2_reg_out,
         B => bv2_reg_out,
         S => mux_t_out
@@ -126,7 +126,7 @@ begin
     generic map (N => 1)
     port map (
         A(0) => geq_3d_out,
-        S(0) => Error
+        S(0) => Error_BO
     );
 
     u_max_0 : entity work.Max
