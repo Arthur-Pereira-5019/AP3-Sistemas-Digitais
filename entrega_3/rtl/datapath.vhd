@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use work.record_pack.all;
 
 entity collision_datapath is
 
@@ -13,22 +14,13 @@ entity collision_datapath is
     port (
         clk : in std_logic;
 
-        -- Controle: carga dos registradores de vértices
-        Get_AV1, Get_AV2 : in std_logic;
-        Get_BV1, Get_BV2 : in std_logic;
-        -- Controle: PA e PB
-        ResetPA, cPA     : in std_logic;
-        ResetPB, cPB     : in std_logic;
-        -- Controle: validação
-        ValidateB        : in std_logic;
-        cC, zC           : in std_logic;
+        Controle : in command_t;
+        Status : out status_t;
+
         -- Dados de entrada
         AV, BV           : in  std_logic_vector(71 downto 0);
         NA, NB           : in  std_logic_vector(9 downto 0);
-        -- Sinais de status (para o bloco de controle)
-        MA, MB           : out std_logic;
-        Error            : out std_logic;
-        Collided         : out std_logic;
+
         -- Dados de saída
         PA, PB           : out std_logic_vector(9 downto 0);
         C1, C2           : out std_logic_vector(71 downto 0);
@@ -64,7 +56,7 @@ begin
     generic map (N => 72)
     port map (
         clk  => clk,
-        load => Get_AV1,
+        load => Controle.Get_AV1,
         D    => AV,
         Q    => av1_reg_out 
     );
@@ -73,7 +65,7 @@ begin
     generic map (N => 72)
     port map (
         clk  => clk,
-        load => Get_AV2,
+        load => Controle.Get_AV2,
         D    => AV,
         Q    => av2_reg_out 
     );
@@ -82,7 +74,7 @@ begin
     generic map (N => 72)
     port map (
         clk  => clk,
-        load => Get_BV1,
+        load => Controle.Get_BV1,
         D    => BV,
         Q    => bv1_reg_out 
     );
@@ -91,7 +83,7 @@ begin
     generic map (N => 72)
     port map (
         clk  => clk,
-        load => Get_BV2,
+        load => Controle.Get_BV2,
         D    => BV,
         Q    => bv2_reg_out 
     );
@@ -99,7 +91,7 @@ begin
     u_mux_g : entity work.mux2to1
     generic map(N => 72)
     port map(
-        sel => validateB,
+        sel => Controle.ValidateB,
         A => av1_reg_out,
         B => bv1_reg_out,
         S => mux_g_out
@@ -108,7 +100,7 @@ begin
     u_mux_t : entity work.mux2to1
     generic map(N => 72)
     port map(
-        sel => validateB,
+        sel => Controle.ValidateB,
         A => av2_reg_out,
         B => bv2_reg_out,
         S => mux_t_out
@@ -126,7 +118,7 @@ begin
     generic map (N => 1)
     port map (
         A(0) => geq_3d_out,
-        S(0) => Error
+        S(0) => Status.Error_BO
     );
 
     u_max_0 : entity work.Max
@@ -180,7 +172,7 @@ begin
     u_mux_c1 : entity work.mux2to1
     generic map(N => 72)
     port map(
-        sel => zC,
+        sel => Controle.zC,
         A => min_out,
         B => ZERO_72,
         S => mux_c1_out
@@ -189,7 +181,7 @@ begin
     u_mux_c2 : entity work.mux2to1
     generic map(N => 72)
     port map(
-        sel => zC,
+        sel => Controle.zC,
         A => max_out,
         B => ZERO_72,
         S => mux_c2_out
@@ -199,7 +191,7 @@ begin
     generic map (N => 72)
     port map (
         clk  => clk,
-        load => cC,
+        load => Controle.cC,
         D    => mux_c1_out,
         Q    => c1_reg_out 
     );
@@ -208,7 +200,7 @@ begin
     generic map (N => 72)
     port map (
         clk  => clk,
-        load => cC,
+        load => Controle.cC,
         D    => mux_c2_out,
         Q    => c2_reg_out
     );
@@ -220,14 +212,13 @@ begin
         C1 => c2_reg_out,
         C2 => c1_reg_out,
         Shape => Shape,
-        Collided => Collided
+        Collided => Status.Collided
     );
 
     u_mux_pb : entity work.mux2to1
     generic map(N => 10)
     port map(
-        -- confirmar port map antes de submeter
-        sel => ResetPB,
+        sel => Controle.ResetPB,
         A => subtractor_pb_out,
         B => NB,
         S => mux_pb_out
@@ -236,8 +227,7 @@ begin
     u_mux_pa : entity work.mux2to1
     generic map(N => 10)
     port map(
-        -- confirmar port map antes de submeter
-        sel => ResetPA,
+        sel => Controle.ResetPA,
         A => subtractor_pa_out,
         B => NA,
         S => mux_pa_out
@@ -247,7 +237,7 @@ begin
     generic map (N => 10)
     port map (
         clk  => clk,
-        load => cPB,
+        load => Controle.cPB,
         D    => mux_pb_out,
         Q    => pb_reg_out 
     );
@@ -256,7 +246,7 @@ begin
     generic map (N => 10)
     port map (
         clk  => clk,
-        load => cPA,
+        load => Controle.cPA,
         D    => mux_pa_out,
         Q    => pa_reg_out 
     );
@@ -295,14 +285,14 @@ begin
     generic map (N => 1)
     port map (
         A(0) => zero_pb_out,
-        S(0) => MB
+        S(0) => Status.MB
     );
 
     u_ma : entity work.inversor
     generic map (N => 1)
     port map (
         A(0) => zero_pa_out,
-        S(0) => MA
+        S(0) => Status.MA
     );
 
     C1 <= c1_reg_out;
