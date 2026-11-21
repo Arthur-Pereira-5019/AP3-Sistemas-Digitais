@@ -1,12 +1,12 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use work.float_config;
 
 entity Min is
 
     generic (
-
-        EXP_W  : positive := 8;
-        FRAC_W : positive := 15
+        EXP_W  : positive := float_config.EXP_W;
+        FRAC_W : positive := float_config.FRAC_W
     );
 
     port (
@@ -19,9 +19,9 @@ end Min;
 architecture behavior of Min is
     signal maior_out : std_logic; 
 begin
-    -- Garante que as larguras informadas somam os 24 bits do vetor.
-    assert (1 + EXP_W + FRAC_W = 24)
-        report "Min: 1 + EXP_W + FRAC_W deve ser igual a 24"
+    -- Garante que as larguras informadas somam a largura do vetor.
+    assert (1 + EXP_W + FRAC_W = A'length)
+        report "Min: 1 + EXP_W + FRAC_W deve ser igual a largura de A"
         severity failure;
 
     -- Mínimo entre A e B (floats de 24 bits).
