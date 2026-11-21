@@ -1,14 +1,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use work.record_pack.all;
+use work.float_config;
 
 entity collision_datapath is
 
     generic (
-        -- Formato do float de 24 bits: [ sinal | expoente | mantissa ]
-        -- Regra: 1 (sinal) + EXP_W + FRAC_W = 24.
-        EXP_W  : positive := 8;
-        FRAC_W : positive := 15
+        EXP_W  : positive := float_config.EXP_W;
+        FRAC_W : positive := float_config.FRAC_W
     );
 
     port (
