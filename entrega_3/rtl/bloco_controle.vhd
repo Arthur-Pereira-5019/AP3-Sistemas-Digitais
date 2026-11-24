@@ -1,19 +1,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use work.record_pack.all;
 
 entity bloco_controle is
     port (
-        CLK, RST, Setup       : in std_logic;
-        Error_BO              : in std_logic;
-        MA, MB, Collided      : in std_logic;
-
-        Get_AV1, Get_AV2      : out std_logic;
-        Get_BV1, Get_BV2      : out std_logic;
-        ResetPA, cPA          : out std_logic;
-        ResetPB, cPB          : out std_logic;
-        ValidateB, cC, zC     : out std_logic;
-
-        ReadV, FinishV, ErroV    : out std_logic
+        CLK, RST, Setup      : in  std_logic;
+        Status               : in  status_t;
+        Controle             : out command_t;
+        ReadV, FinishV, ErroV : out std_logic
     );
 end entity bloco_controle;
 
@@ -25,6 +19,23 @@ architecture rtl of bloco_controle is
     );
 
     signal EstadoAtual : Tipo_estado;
+
+    alias Error_BO is Status.Error_BO;
+    alias MA       is Status.MA;
+    alias MB       is Status.MB;
+    alias Collided is Status.Collided;
+
+    alias Get_AV1  is Controle.Get_AV1;
+    alias Get_AV2  is Controle.Get_AV2;
+    alias Get_BV1  is Controle.Get_BV1;
+    alias Get_BV2  is Controle.Get_BV2;
+    alias ResetPA  is Controle.ResetPA;
+    alias ResetPB  is Controle.ResetPB;
+    alias cPA      is Controle.cPA;
+    alias cPB      is Controle.cPB;
+    alias ValidateB is Controle.ValidateB;
+    alias cC       is Controle.cC;
+    alias zC       is Controle.zC;
 begin
     Estado_BC: process (RST, CLK)
     begin
