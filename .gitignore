@@ -1,0 +1,16 @@
+work/
+work-obj08.cf
+modelsim.ini
+transcript
+*.wlf
+wlft*
+
+db/
+incremental_db/
+.qsys_edit/
+*.qws
+*.bak
+*.tmp
+
+output_files/
+simulation/
