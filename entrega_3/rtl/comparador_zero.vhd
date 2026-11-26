@@ -18,5 +18,5 @@ architecture behavior of comparador_zero is
 begin
     -- Comparador "igual a zero" (A = 0) para vetores de N bits.
     -- S = '1' quando todos os bits de A são '0'; caso contrário, S = '0'.
-    S <= '1' when unsigned(A) = 0 else '0';
+    S <= '1' when (unsigned(A) = 0 or unsigned(A) = 1) else '0';
 end architecture behavior;
