@@ -1,15 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use work.record_pack.all;
-use work.float_config;
+
 
 entity collision_datapath is
-
-    generic (
-        EXP_W  : positive := float_config.EXP_W;
-        FRAC_W : positive := float_config.FRAC_W
-    );
-
     port (
         clk : in std_logic;
 
@@ -106,7 +100,6 @@ begin
     );
 
     u_3D : entity work.geq_3d
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         G => mux_g_out,
         T => mux_t_out,
@@ -121,7 +114,6 @@ begin
     );
 
     u_max_0 : entity work.Max
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         A => av2_reg_out(71 downto 48),
         B => bv2_reg_out(71 downto 48),
@@ -129,7 +121,6 @@ begin
     );
 
     u_max_1 : entity work.Max
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         A => av2_reg_out(47 downto 24),
         B => bv2_reg_out(47 downto 24),
@@ -137,7 +128,6 @@ begin
     );
 
     u_max_2 : entity work.Max
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         A => av2_reg_out(23 downto 0),
         B => bv2_reg_out(23 downto 0),
@@ -145,7 +135,6 @@ begin
     );
 
     u_min_0 : entity work.Min
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         A => av1_reg_out(71 downto 48),
         B => bv1_reg_out(71 downto 48),
@@ -153,7 +142,6 @@ begin
     );
 
     u_min_1 : entity work.Min
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         A => av1_reg_out(47 downto 24),
         B => bv1_reg_out(47 downto 24),
@@ -161,7 +149,6 @@ begin
     );
 
     u_min_2 : entity work.Min
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
         A => av1_reg_out(23 downto 0),
         B => bv1_reg_out(23 downto 0),
@@ -205,11 +192,9 @@ begin
     );
 
     TCAS : entity work.Test_Collision_and_Shape
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
     port map (
-        -- confirmar inversão antes de submeter
-        C1 => c2_reg_out,
-        C2 => c1_reg_out,
+        C1 => c1_reg_out,
+        C2 => c2_reg_out,
         Shape => Shape,
         Collided => Status.Collided
     );

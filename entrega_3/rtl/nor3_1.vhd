@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity nor3 is 
+entity nor3_1 is 
 
     port (
         A : in std_logic;
@@ -9,9 +9,9 @@ entity nor3 is
         C : in std_logic;
         S : out std_logic
     );
-end nor3;
+end nor3_1;
 
-architecture behavior of nor3 is 
+architecture behavior of nor3_1 is 
 begin
     S <= not (A or B or C); -- S = '1' somente quando A, B e C são todos '0'; caso contrário, S = '0'.
 end architecture behavior;

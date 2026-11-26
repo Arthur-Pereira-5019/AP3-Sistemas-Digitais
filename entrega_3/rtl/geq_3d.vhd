@@ -1,13 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.float_config;
+use ieee.numeric_std.all;
 
 entity geq_3d is
-
-    generic (
-        EXP_W  : positive := float_config.EXP_W;
-        FRAC_W : positive := float_config.FRAC_W
-    );
 
     port (
         G : in std_logic_vector(71 downto 0);
@@ -18,35 +13,17 @@ entity geq_3d is
 end geq_3d;
 
 architecture behavior of geq_3d is
-
-    signal maior_igual_out : std_logic_vector(2 downto 0);
+    signal g_un : unsigned(71 downto 0);
+    signal t_un : unsigned(71 downto 0);
+    signal maior_igual : std_logic_vector(2 downto 0);
 
 begin
+    g_un <= unsigned(G);
+    t_un <= unsigned(T);
+    maior_igual(0) <= '1' when g_un(71 downto 48) >= t_un(71 downto 48) else '0';
+    maior_igual(1) <= '1' when g_un(47 downto 24) >= t_un(47 downto 24) else '0';
+    maior_igual(2) <= '1' when g_un(23 downto 0) >= t_un(23 downto 0) else '0';
 
-    u_maior_igual_0 : entity work.comparador_maior_igual_float
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
-    port map (
-        A => G(71 downto 48),
-        B => T(71 downto 48),
-        S => maior_igual_out(0)
-    );
-
-    u_maior_igual_1 : entity work.comparador_maior_igual_float
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
-    port map (
-        A => G(47 downto 24),
-        B => T(47 downto 24),
-        S => maior_igual_out(1)
-    );
-
-    u_maior_igual_2 : entity work.comparador_maior_igual_float
-    generic map (EXP_W => EXP_W, FRAC_W => FRAC_W)
-    port map (
-        A => G(23 downto 0),
-        B => T(23 downto 0),
-        S => maior_igual_out(2)
-    );
-
-    S <= maior_igual_out(2) and maior_igual_out(1) and maior_igual_out(0);
+    S <= maior_igual(2) and maior_igual(1) and maior_igual(0);
 
 end architecture behavior;

@@ -1,13 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use work.record_pack.all;
-use work.float_config;
 
 entity top_level is
-    generic (
-        EXP_W  : positive := float_config.EXP_W;
-        FRAC_W : positive := float_config.FRAC_W
-    );
     port (
         -- Entradas
         NA, NB           : in  std_logic_vector(9 downto 0);
@@ -42,10 +37,6 @@ begin
         );
 
     U_BO : entity work.collision_datapath
-        generic map (
-            EXP_W  => EXP_W,
-            FRAC_W => FRAC_W
-        )
         port map (
             clk      => CLK,
             Controle => Controle,
