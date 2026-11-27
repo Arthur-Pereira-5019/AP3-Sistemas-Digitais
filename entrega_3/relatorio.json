@@ -1,0 +1,35 @@
+{
+    "Grupo": {
+        "nome": "AP3-05235A-Grupo-A",
+        "alunos": [
+          {"nome": "Samuel Schlemper", "matricula": "26100653"},
+          {"nome": "Rumenigue de Candio Fagundes", "matricula": "26102343"},
+          {"nome": "Pedro Ferrari Barbosa", "matricula": "26100670"},
+          {"nome": "Arthur Pereira", "matricula": "26100642"},
+          {"nome": "Bruno Peplau Mendes", "matricula": "25207028"},
+          {"nome": "Pedro Mader Ebone", "matricula": "26100671"},
+          {"nome": "Márcio Schwartz Resende", "matricula": "26104371"},
+          {"nome": "Marco Antonio Molin Dagostini", "matricula": "26106469"}
+        ]
+    },
+
+    "quartus": {
+        "os": "Quisque de aulas (imagem Quartus)",
+        "versao": "25.1std.0 Build 1129 10/21/2025 SC Lite Edition",
+        "fpga": {
+            "familia": "Cyclone IV E",
+            "dispositivo": "EP4CE40F29C7"
+        }
+    },
+
+    "utilizacao": {
+        "total combinational functions": 1350,
+        "dedicated logic registers": 464,
+        "total pins": 337
+    },
+
+    "atraso": {
+        "Fmax": 138.08,
+        "unidade": "MHz"
+    }
+}
